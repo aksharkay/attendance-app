@@ -24,6 +24,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
+    _getAttList(context);
   }
 
   Future<void> takePicture() async {
