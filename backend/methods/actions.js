@@ -27,22 +27,22 @@ var functions = {
         }
     },
 
-    authenticate: function(req,res){
-        Auth.findOne({
+    authenticate: async function(req,res) {
+        await Auth.findOne({
             email: req.body.email
         }, function(err,auth){
             if(err) throw err
             if(!auth){
-                res.status(403).send({success: false, msg: 'Authentication Failed, auth Not Found.'})
+                res.json({success: false, msg: 'Authentication Failed, E-mail Not Found.'})
             }
             else{
-                auth.comparePassword(req.body.password, function(err, isMatch){
+                await auth.comparePassword(req.body.password, function(err, isMatch){
                     if(isMatch && !err){
                         var token = jwt.encode(auth,config.secret)
                         res.json({success: true, token: token})
                     }
                     else{
-                        return res.status(403).send({
+                        return res.json({
                             success: false, msg: 'Authentication Failed, Wrong Password.'
                         })
                     }
