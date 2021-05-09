@@ -10,7 +10,7 @@ import './entry.dart';
 import './user.dart';
 
 class Entries extends ChangeNotifier {
-  final String baseURL = 'http://128.199.30.136';
+  final String baseURL = '128.199.30.136';
   List<Entry> _list = [];
   List<User> _allUsers = [];
 
@@ -147,5 +147,3 @@ class Entries extends ChangeNotifier {
     }
   }
 }
-
-// URL: 192.168.0.112
