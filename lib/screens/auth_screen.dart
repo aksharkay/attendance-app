@@ -1,4 +1,4 @@
-import 'package:face_recognition_app/screens/dashboard_screen.dart';
+import '../screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../providers/auth.dart';

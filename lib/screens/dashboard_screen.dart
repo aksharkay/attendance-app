@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 import '../providers/entries.dart';
 import '../widgets/app_drawer.dart';
