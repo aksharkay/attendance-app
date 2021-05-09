@@ -40,7 +40,7 @@ class Entries extends ChangeNotifier {
       print(date);
       String endPoint = '$baseURL';
       String api = '/attlist';
-      var uri = Uri.https(endPoint, api, params);
+      var uri = Uri.http(endPoint, api, params);
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       var response = await http.get(uri, headers: headers);
 
@@ -65,12 +65,11 @@ class Entries extends ChangeNotifier {
         _list = loadedEntries;
 
         notifyListeners();
-
-        return Future.value(_list);
       }
     } catch (err) {
       throw err;
     }
+    return Future.value(_list);
   }
 
   Future<List> getAllUsers() async {
@@ -94,13 +93,12 @@ class Entries extends ChangeNotifier {
         });
 
         _allUsers = loadedUsers;
-
-        return Future.value(_allUsers);
       }
     } catch (err) {
       throw err;
     }
     notifyListeners();
+    return Future.value(_allUsers);
   }
 
   Future<void> addEntryManually(User user) async {
@@ -129,7 +127,7 @@ class Entries extends ChangeNotifier {
 
       String endPoint = '$baseURL';
       String api = '/photoentry';
-      var uri = Uri.https(endPoint, api, params);
+      var uri = Uri.http(endPoint, api, params);
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       var response = await http.get(uri, headers: headers);
 
