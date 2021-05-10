@@ -10,7 +10,7 @@ import './entry.dart';
 import './user.dart';
 
 class Entries extends ChangeNotifier {
-  final String baseURL = '128.199.30.136';
+  final String baseURL = 'facerecflutter.tech';
   List<Entry> _list = [];
   List<User> _allUsers = [];
 
@@ -40,7 +40,7 @@ class Entries extends ChangeNotifier {
       print(date);
       String endPoint = '$baseURL';
       String api = '/attlist';
-      var uri = Uri.http(endPoint, api, params);
+      var uri = Uri.https(endPoint, api, params);
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       var response = await http.get(uri, headers: headers);
 
@@ -127,7 +127,7 @@ class Entries extends ChangeNotifier {
 
       String endPoint = '$baseURL';
       String api = '/photoentry';
-      var uri = Uri.http(endPoint, api, params);
+      var uri = Uri.https(endPoint, api, params);
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       var response = await http.get(uri, headers: headers);
 
