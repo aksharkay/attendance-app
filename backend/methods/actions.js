@@ -90,7 +90,7 @@ var functions = {
     },
 
     addUser: async function(req,res) {
-        {
+        try{
             if((!req.body._id) || (!req.body.name) || (!req.body.embedding)){
             res.json({success: false, msg: 'Enter all fields.'})
             }
@@ -109,6 +109,9 @@ var functions = {
                     }
                 })
             }
+        }
+        catch(err){
+            res.json({success: false, msg: err})
         }
     },
 
