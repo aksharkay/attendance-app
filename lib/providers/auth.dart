@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Auth with ChangeNotifier {
   Dio dio = new Dio();
-  final String baseURL = '128.199.30.136:80';
+  final String baseURL = 'facerecflutter.tech';
 
   login(email, password) async {
     try {
@@ -19,7 +19,9 @@ class Auth with ChangeNotifier {
       print(log);
     } on DioError catch (error) {
       Fluttertoast.showToast(
-        msg: error.response.data['msg'],
+        msg: error.response.data['msg'] != null
+            ? error.response.data['msg']
+            : error,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.red,

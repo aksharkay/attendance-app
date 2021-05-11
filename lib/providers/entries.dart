@@ -10,7 +10,7 @@ import './entry.dart';
 import './user.dart';
 
 class Entries extends ChangeNotifier {
-  final String baseURL = '128.199.30.136';
+  final String baseURL = 'facerecflutter.tech';
   List<Entry> _list = [];
   List<User> _allUsers = [];
 
@@ -40,17 +40,18 @@ class Entries extends ChangeNotifier {
       print(date);
       String endPoint = '$baseURL';
       String api = '/attlist';
-      var uri = Uri.http(endPoint, api, params);
+      var uri = Uri.https(endPoint, api, params);
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       var response = await http.get(uri, headers: headers);
 
       final jsonData = json.decode(response.body);
       final extractedData = jsonData['msg'] as dynamic;
-      //_list = extractedData;
+
       print(extractedData);
 
+      _list = [];
+      final List<Entry> loadedEntries = [];
       if (extractedData is List) {
-        final List<Entry> loadedEntries = [];
         extractedData.forEach((entryData) {
           loadedEntries.add(
             Entry(
@@ -63,26 +64,29 @@ class Entries extends ChangeNotifier {
         });
 
         _list = loadedEntries;
-
-        notifyListeners();
       }
     } catch (err) {
       throw err;
     }
+    notifyListeners();
     return Future.value(_list);
   }
 
   Future<List> getAllUsers() async {
     try {
-      final url = Uri.parse('$baseURL/allusers');
-      final response = await http.get(url);
+      String endPoint = '$baseURL';
+      String api = '/allusers';
+      var uri = Uri.https(endPoint, api);
+      final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+      var response = await http.get(uri, headers: headers);
+
       final jsonData = json.decode(response.body);
       final extractedData = jsonData['msg'] as dynamic;
-      //print(jsonData);
-      print(extractedData);
+
+      _allUsers = [];
+      final List<User> loadedUsers = [];
 
       if (extractedData is List) {
-        final List<User> loadedUsers = [];
         extractedData.forEach((userData) {
           loadedUsers.add(
             User(
@@ -97,7 +101,7 @@ class Entries extends ChangeNotifier {
     } catch (err) {
       throw err;
     }
-    notifyListeners();
+
     return Future.value(_allUsers);
   }
 
@@ -127,7 +131,7 @@ class Entries extends ChangeNotifier {
 
       String endPoint = '$baseURL';
       String api = '/photoentry';
-      var uri = Uri.http(endPoint, api, params);
+      var uri = Uri.https(endPoint, api, params);
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
       var response = await http.get(uri, headers: headers);
 

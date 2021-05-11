@@ -11,8 +11,8 @@ class AllUsersScreen extends StatefulWidget {
 }
 
 class _AllUsersScreenState extends State<AllUsersScreen> {
-  Future<User> _getAllUsers(BuildContext context) async {
-    await Provider.of<Entries>(context).getAllUsers();
+  Future<List> _getAllUsers(BuildContext context) async {
+    return Provider.of<Entries>(context).getAllUsers();
   }
 
   @override
@@ -29,7 +29,10 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
             case ConnectionState.done:
               return Consumer<Entries>(
                 builder: (context, users, child) {
-                  return _buildListView(users);
+                  // print(users.allUsers);
+                  return users.allUsers.length == 0
+                      ? _buildNoUsers()
+                      : _buildListView(users);
                 },
               );
 
