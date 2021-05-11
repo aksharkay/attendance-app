@@ -30,7 +30,7 @@ var functions = {
     authenticate: async function(req,res) {
         await Auth.findOne({
             email: req.body.email
-        }, function(err,auth){
+        }, async function(err,auth){
             if(err) throw err
             if(!auth){
                 res.json({success: false, msg: 'Authentication Failed, E-mail Not Found.'})
