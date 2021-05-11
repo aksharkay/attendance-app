@@ -2,15 +2,16 @@ import '../screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../providers/auth.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatelessWidget {
-  toast(String msg) {
+  toast(String msg, bool error) {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.green,
+      backgroundColor: error ? Colors.red : Colors.green,
       textColor: Colors.white,
       fontSize: 16,
     );
@@ -162,18 +163,22 @@ class AuthScreen extends StatelessWidget {
                                             color:
                                                 Theme.of(context).buttonColor),
                                       ),
-                                      onPressed: () =>
-                                          Auth().login(email, password).then(
-                                        (val) {
-                                          if (val.data['success']) {
-                                            token = val.data['token'];
-                                            toast('Sign In Successful');
-                                            Navigator.of(context)
-                                                .pushReplacementNamed(
-                                                    DashboardScreen.routeName);
-                                          }
-                                        },
-                                      ),
+                                      onPressed: () async {
+                                        final val = await Provider.of<Auth>(
+                                                context,
+                                                listen: false)
+                                            .login(email, password);
+
+                                        if (val.data['success']) {
+                                          token = val.data['token'];
+                                          toast('Sign In Successful', false);
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(
+                                                  DashboardScreen.routeName);
+                                        } else {
+                                          toast(val.data['msg'], true);
+                                        }
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: 10),
@@ -199,10 +204,12 @@ class AuthScreen extends StatelessWidget {
                                         (val) {
                                           if (val.data['success']) {
                                             token = val.data['token'];
-                                            toast('Sign Up Successful');
+                                            toast('Sign Up Successful', false);
                                             Navigator.of(context)
                                                 .pushReplacementNamed(
                                                     DashboardScreen.routeName);
+                                          } else {
+                                            toast(val.data['msg'], true);
                                           }
                                         },
                                       ),

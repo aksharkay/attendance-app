@@ -74,7 +74,7 @@ var functions = {
                                     res.json({success: false, msg: err});
                                 }
                                 else{
-                                    res.json({success:true, msg: 'Entry added successfully.'});
+                                    res.json({success:true, msg: 'Entry added successfully'});
                                 }
                         }));
                 }

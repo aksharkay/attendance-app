@@ -28,7 +28,7 @@ class Entries extends ChangeNotifier {
       toastLength: Toast.LENGTH_SHORT,
       // gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.greenAccent,
+      backgroundColor: Colors.green,
       textColor: Colors.white,
       fontSize: 16,
     );
@@ -107,7 +107,7 @@ class Entries extends ChangeNotifier {
 
   Future<void> addEntryManually(User user) async {
     try {
-      final url = Uri.parse('$baseURL/addentry');
+      final url = Uri.parse('https://$baseURL/addentry');
       final date = DateFormat('dd-MM-yyyy').format(DateTime.now()).toString();
       final response = await http.post(url, body: {
         'date': date,
@@ -139,7 +139,10 @@ class Entries extends ChangeNotifier {
       final extractedData = jsonData['msg'] as String;
       var name = extractedData.substring(9);
       var id = extractedData.substring(0, 9);
-      var user = new User(id: id, name: name);
+      var user = new User(
+        id: id,
+        name: name,
+      );
       addEntryManually(user);
       notifyListeners();
 

@@ -1,40 +1,29 @@
 import 'package:dio/dio.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
 class Auth with ChangeNotifier {
   Dio dio = new Dio();
   final String baseURL = 'facerecflutter.tech';
 
-  login(email, password) async {
+  Future<dynamic> login(email, password) async {
     try {
-      var log = await dio.post(
-        '$baseURL/authenticate',
+      return await dio.post(
+        'https://$baseURL/authenticate',
         data: {
           'email': email,
           'password': password,
         },
         options: Options(contentType: Headers.formUrlEncodedContentType),
       );
-      print(log);
     } on DioError catch (error) {
-      Fluttertoast.showToast(
-        msg: error.response.data['msg'] != null
-            ? error.response.data['msg']
-            : error,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16,
-      );
+      return error;
     }
   }
 
-  signUp(email, password) async {
+  Future<dynamic> signUp(email, password) async {
     try {
       return await dio.post(
-        '$baseURL/addnewauth',
+        'https://$baseURL/addnewauth',
         data: {
           'email': email,
           "password": password,
@@ -42,14 +31,7 @@ class Auth with ChangeNotifier {
         options: Options(contentType: Headers.formUrlEncodedContentType),
       );
     } on DioError catch (error) {
-      Fluttertoast.showToast(
-        msg: error.response.data['msg'],
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16,
-      );
+      return error;
     }
   }
 
