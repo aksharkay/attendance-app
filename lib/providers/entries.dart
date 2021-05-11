@@ -46,11 +46,12 @@ class Entries extends ChangeNotifier {
 
       final jsonData = json.decode(response.body);
       final extractedData = jsonData['msg'] as dynamic;
-      //_list = extractedData;
+
       print(extractedData);
 
+      _list = [];
+      final List<Entry> loadedEntries = [];
       if (extractedData is List) {
-        final List<Entry> loadedEntries = [];
         extractedData.forEach((entryData) {
           loadedEntries.add(
             Entry(
@@ -63,26 +64,29 @@ class Entries extends ChangeNotifier {
         });
 
         _list = loadedEntries;
-
-        notifyListeners();
       }
     } catch (err) {
       throw err;
     }
+    notifyListeners();
     return Future.value(_list);
   }
 
   Future<List> getAllUsers() async {
     try {
-      final url = Uri.parse('$baseURL/allusers');
-      final response = await http.get(url);
+      String endPoint = '$baseURL';
+      String api = '/allusers';
+      var uri = Uri.https(endPoint, api);
+      final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
+      var response = await http.get(uri, headers: headers);
+
       final jsonData = json.decode(response.body);
       final extractedData = jsonData['msg'] as dynamic;
-      //print(jsonData);
-      print(extractedData);
+
+      _allUsers = [];
+      final List<User> loadedUsers = [];
 
       if (extractedData is List) {
-        final List<User> loadedUsers = [];
         extractedData.forEach((userData) {
           loadedUsers.add(
             User(
@@ -97,13 +101,13 @@ class Entries extends ChangeNotifier {
     } catch (err) {
       throw err;
     }
-    notifyListeners();
+
     return Future.value(_allUsers);
   }
 
   Future<void> addEntryManually(User user) async {
     try {
-      final url = Uri.parse('$baseURL/addentry');
+      final url = Uri.parse('https://$baseURL/addentry');
       final date = DateFormat('dd-MM-yyyy').format(DateTime.now()).toString();
       final response = await http.post(url, body: {
         'date': date,

@@ -19,7 +19,9 @@ class Auth with ChangeNotifier {
       print(log);
     } on DioError catch (error) {
       Fluttertoast.showToast(
-        msg: error.response.data['msg'],
+        msg: error.response.data['msg'] != null
+            ? error.response.data['msg']
+            : error,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.red,

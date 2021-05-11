@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: AuthScreen(),
+        home: DashboardScreen(),
         routes: {
           DashboardScreen.routeName: (ctx) => DashboardScreen(),
           ScannerScreen.routeName: (ctx) => ScannerScreen(),
