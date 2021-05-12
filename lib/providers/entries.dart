@@ -129,7 +129,7 @@ class Entries extends ChangeNotifier {
       var params = {'path': _filePath};
       print(params['path']);
 
-      String endPoint = '$baseURL';
+      String endPoint = 'https://$baseURL';
       String api = '/photoentry';
       var uri = Uri.https(endPoint, api, params);
       final headers = {HttpHeaders.contentTypeHeader: 'application/json'};

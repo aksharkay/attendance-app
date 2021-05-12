@@ -1,94 +1,114 @@
-import 'package:face_recognition_app/providers/entries.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+import 'dart:ui' as ui;
 import 'dart:io';
-import 'package:intl/intl.dart';
-
-import './dashboard_screen.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ScannerScreen extends StatefulWidget {
-  static const routeName = 'scanner-screen';
-
+  static const routeName = '/scanner-screen';
   @override
   _ScannerScreenState createState() => _ScannerScreenState();
 }
 
 class _ScannerScreenState extends State<ScannerScreen> {
   @override
-  Widget build(BuildContext context) {
-    String imagePath = ModalRoute.of(context).settings.arguments;
-    final deviceSize = MediaQuery.of(context).size;
+  void initState() {
+    _takePicture();
+    super.initState();
+  }
 
-    _showDialogBox(String name, String id) {
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: Text('Entry Added!'),
-          content: Column(children: [
-            Icon(
-              Icons.check_circle_rounded,
-              color: Theme.of(context).primaryColor,
-            ),
-            Text('Face Identified.'),
-            Text(name),
-            Text(id),
-            Text(
-              DateFormat.jm()
-                  .format(DateTime.parse(DateTime.now().toString()).toLocal()),
-            ),
-          ]),
-          backgroundColor: Theme.of(context).cardColor,
-          actions: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).primaryColor),
-                child: Text('Next'),
-                onPressed: () => Navigator.of(context)
-                    .pushReplacementNamed(DashboardScreen.routeName))
-          ],
-        ),
-      );
+  File _imageFile;
+  List<Face> _faces;
+  bool isLoading = false;
+  ui.Image _image;
+
+  _takePicture() async {
+    final picker = ImagePicker();
+    final imageFile = await picker.getImage(
+      source: ImageSource.camera,
+    );
+
+    setState(() {
+      isLoading = true;
+    });
+
+    final image = FirebaseVisionImage.fromFile(File(imageFile.path));
+    final faceDetector = FirebaseVision.instance.faceDetector();
+    List<Face> faces = await faceDetector.processImage(image);
+
+    if (mounted) {
+      setState(() {
+        _imageFile = File(imageFile.path);
+        _faces = faces;
+        _loadImage(File(_imageFile.path));
+      });
     }
+  }
 
+  _loadImage(File file) async {
+    final data = await file.readAsBytes();
+    await decodeImageFromList(data).then((value) => setState(() {
+          _image = value;
+          isLoading = false;
+        }));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(children: [
-        Center(
-          child: Container(
-            height: deviceSize.height * 0.75,
-            width: deviceSize.width * 0.75,
-            child: Image.file(File(imagePath)),
-          ),
-        ),
-        SizedBox(
-          width: deviceSize.width * 0.75,
-          child: ElevatedButton(
-            child: Text('Check In'),
-            onPressed: () async {
-              var val = await Provider.of<Entries>(context, listen: false)
-                  .addPhotoEntry(imagePath);
-              var name = val.substring(9);
-              var id = val.substring(0, 9);
-              print("Name: " + name + " ID: " + id);
-
-              _showDialogBox(name, id);
-            },
-            style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).primaryColor),
-          ),
-        ),
-        SizedBox(
-          width: deviceSize.width * 0.75,
-          child: ElevatedButton(
-            child: Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            style:
-                ElevatedButton.styleFrom(primary: Theme.of(context).errorColor),
-          ),
-        ),
-      ]),
+      body: isLoading
+          ? Center(
+              child: LinearProgressIndicator(),
+            )
+          : (_imageFile == null)
+              ? Center(
+                  child: Text('No Image Taken.'),
+                )
+              : Center(
+                  child: FittedBox(
+                    child: SizedBox(
+                      width: _image.width.toDouble(),
+                      height: _image.height.toDouble(),
+                      child: CustomPaint(
+                        painter: FacePainter(
+                          _image,
+                          _faces,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
     );
+  }
+}
+
+class FacePainter extends CustomPainter {
+  final List<Face> faces;
+  final List<Rect> rects = [];
+  final ui.Image image;
+
+  FacePainter(this.image, this.faces) {
+    for (var i = 0; i < faces.length; i++) {
+      rects.add(faces[i].boundingBox);
+    }
+  }
+
+  @override
+  void paint(ui.Canvas canvas, ui.Size size) {
+    final Paint paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 20.0
+      ..color = Colors.yellow;
+
+    canvas.drawImage(image, Offset.zero, Paint());
+    for (var i = 0; i < faces.length; i++) {
+      canvas.drawRect(rects[i], paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(FacePainter old) {
+    return image != old.image || faces != old.faces;
   }
 }

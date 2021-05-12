@@ -3,7 +3,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
-import 'package:image_picker/image_picker.dart';
 
 import '../providers/entries.dart';
 import '../widgets/app_drawer.dart';
@@ -19,28 +18,10 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   DateTime _dateTime = DateTime.now();
-  String _storedImagePath;
 
   @override
   void initState() {
     super.initState();
-    //_getAttList(context);
-  }
-
-  void didChangeDependencies() {}
-
-  Future<void> takePicture() async {
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
-      source: ImageSource.camera,
-      maxWidth: 600,
-    );
-
-    setState(() {
-      _storedImagePath = imageFile.path;
-    });
-    Navigator.of(context)
-        .pushNamed(ScannerScreen.routeName, arguments: _storedImagePath);
   }
 
   Future<void> selectDate() async {
@@ -174,9 +155,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               'Manual',
               style: TextStyle(color: Colors.white),
             ),
-            onTap: () {
-              Navigator.of(context).pushNamed(AllUsersScreen.routeName);
-            },
+            onTap: () =>
+                Navigator.of(context).pushNamed(AllUsersScreen.routeName),
           ),
           SpeedDialChild(
             child: Icon(
@@ -188,7 +168,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               'Photo',
               style: TextStyle(color: Colors.white),
             ),
-            onTap: takePicture,
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed(ScannerScreen.routeName),
           ),
         ],
       ),

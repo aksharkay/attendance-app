@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/entries.dart';
-import '../providers/user.dart';
 
 class AllUsersScreen extends StatefulWidget {
   static const routeName = 'all-users-screen';
