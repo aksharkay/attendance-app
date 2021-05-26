@@ -94,6 +94,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
           if (faceDetected) {
             if (widget.isLogin) {
               var nameAndID = _predictUser();
+              print(nameAndID);
               if (nameAndID != null) {
                 this.predictedUser = User.fromDB(nameAndID);
               }
