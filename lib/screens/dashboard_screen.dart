@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import '../services/facenet_service.dart';
+import '../services/ml_vision_service.dart';
+import '../db/database.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:camera/camera.dart';
 import 'dart:async';
 
 import '../providers/entries.dart';
@@ -18,10 +22,42 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   DateTime _dateTime = DateTime.now();
+  FaceNetService _faceNetService = FaceNetService();
+  MLVisionService _mlVisionService = MLVisionService();
+  DataBaseService _dataBaseService = DataBaseService();
+
+  CameraDescription cameraDescription;
+  bool loading = false;
 
   @override
   void initState() {
     super.initState();
+    _startUp();
+  }
+
+  _startUp() async {
+    _setLoading(true);
+
+    List<CameraDescription> cameras = await availableCameras();
+
+    /// takes the front camera
+    cameraDescription = cameras.firstWhere(
+      (CameraDescription camera) =>
+          camera.lensDirection == CameraLensDirection.front,
+    );
+
+    // start the services
+    await _faceNetService.loadModel();
+    await _dataBaseService.loadDB();
+    _mlVisionService.initialize();
+
+    _setLoading(false);
+  }
+
+  _setLoading(bool value) {
+    setState(() {
+      loading = value;
+    });
   }
 
   Future<void> selectDate() async {
@@ -168,8 +204,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               'Photo',
               style: TextStyle(color: Colors.white),
             ),
-            onTap: () => Navigator.of(context)
-                .pushReplacementNamed(ScannerScreen.routeName),
+            onTap: () => Navigator.of(context).pushReplacementNamed(
+              ScannerScreen.routeName,
+              arguments: cameraDescription,
+            ),
           ),
         ],
       ),

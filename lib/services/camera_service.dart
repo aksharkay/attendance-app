@@ -37,7 +37,7 @@ class CameraService {
     );
 
     // Next, initialize the controller. This returns a Future.
-    return this._cameraController.initialize();
+    return await this._cameraController.initialize();
   }
 
   ImageRotation rotationIntToImageRotation(int rotation) {
