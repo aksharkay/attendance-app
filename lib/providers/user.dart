@@ -10,4 +10,8 @@ class User {
     @required this.name,
     this.embedding,
   });
+
+  static User fromDB(String dbuser) {
+    return new User(name: dbuser.split(':')[0], id: dbuser.split(':')[1]);
+  }
 }
