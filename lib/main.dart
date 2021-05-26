@@ -7,7 +7,6 @@ import './providers/entries.dart';
 import './providers/auth.dart';
 import './screens/dashboard_screen.dart';
 import './screens/all_users_screen.dart';
-import './screens/scanner_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,7 +48,6 @@ class MyApp extends StatelessWidget {
         home: AuthScreen(),
         routes: {
           DashboardScreen.routeName: (ctx) => DashboardScreen(),
-          ScannerScreen.routeName: (ctx) => ScannerScreen(),
           AllUsersScreen.routeName: (ctx) => AllUsersScreen(),
         },
       ),
