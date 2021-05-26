@@ -169,6 +169,7 @@ class FaceNetService {
         predRes = label;
       }
     }
+    print("Pred Res: " + predRes);
     return predRes;
   }
 
