@@ -31,17 +31,18 @@ class FaceNetService {
   Future loadModel() async {
     try {
       final gpuDelegateV2 = tflite.GpuDelegateV2(
-          options: tflite.GpuDelegateOptionsV2(
-              false,
-              tflite.TfLiteGpuInferenceUsage.fastSingleAnswer,
-              tflite.TfLiteGpuInferencePriority.minLatency,
-              tflite.TfLiteGpuInferencePriority.auto,
-              tflite.TfLiteGpuInferencePriority.auto));
+        options: tflite.GpuDelegateOptionsV2(
+          false,
+          tflite.TfLiteGpuInferenceUsage.fastSingleAnswer,
+          tflite.TfLiteGpuInferencePriority.minLatency,
+          tflite.TfLiteGpuInferencePriority.auto,
+          tflite.TfLiteGpuInferencePriority.auto,
+        ),
+      );
 
       var interpreterOptions = tflite.InterpreterOptions()
         ..addDelegate(gpuDelegateV2);
-      this._interpreter = await tflite.Interpreter.fromAsset(
-          'mobilefacenet.tflite',
+      _interpreter = await tflite.Interpreter.fromAsset('mobilefacenet.tflite',
           options: interpreterOptions);
       print('model loaded successfully');
     } catch (e) {
@@ -68,6 +69,8 @@ class FaceNetService {
   /// takes the predicted data previously saved and do inference
   String predict() {
     /// search closer user prediction if exists
+    print('Predicted Data: ');
+    print(this._predictedData);
     return _searchResult(this._predictedData);
   }
 
