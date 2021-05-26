@@ -93,6 +93,7 @@ lib/generated_plugin_registrant.dart
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 db_init.ipynb
+face_recognition.py
 
 # IPython
 profile_default/
