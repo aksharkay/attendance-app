@@ -124,6 +124,23 @@ class Entries extends ChangeNotifier {
     }
   }
 
+  addNewUser(String name, String id) async {
+    try {
+      final url = Uri.parse('https://$baseURL/addnewuser');
+      final response = await http.post(url, body: {
+        'id': id,
+        'name': name,
+      });
+
+      final jsonResp = json.decode(response.body);
+      print(jsonResp);
+
+      toast(jsonResp['msg']);
+    } catch (err) {
+      throw err;
+    }
+  }
+
   Future<String> addPhotoEntry(String _filePath) async {
     try {
       var params = {'path': _filePath};
