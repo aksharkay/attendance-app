@@ -91,14 +91,13 @@ var functions = {
 
     addUser: async function(req,res) {
         try{
-            if((!req.body._id) || (!req.body.name) || (!req.body.embedding)){
+            if((!req.body.id) || (!req.body.name)){
             res.json({success: false, msg: 'Enter all fields.'})
             }
             else{
                 var newUser = User({
                     name: req.body.name,
-                    _id: req.body._id,
-                    embedding: req.body.embedding,
+                    _id: req.body.id,
                 });
                 await newUser.save(function(err,newUser){
                     if(err){
