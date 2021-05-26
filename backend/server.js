@@ -3,7 +3,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 const connectDB = require('./config/db.js')
 const passport = require('passport')
-const bodyParser = require('body-parser')
 const routes = require('./routes/index.js')
 
 connectDB()
