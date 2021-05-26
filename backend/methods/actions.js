@@ -89,7 +89,7 @@ var functions = {
         }
     },
 
-    addUser: async function(req,res) {
+    addUser: function(req,res) {
         try{
             if((!req.body.id) || (!req.body.name)){
             res.json({success: false, msg: 'Enter all fields.'})
@@ -99,7 +99,7 @@ var functions = {
                     name: req.body.name,
                     _id: req.body.id,
                 });
-                await newUser.save(function(err,newUser){
+                newUser.save(function(err,newUser){
                     if(err){
                         res.json({success: false, msg: err})
                     }
