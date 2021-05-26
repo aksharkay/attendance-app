@@ -14,7 +14,7 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 app.use(cors())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(routes)
 app.use(passport.initialize())
