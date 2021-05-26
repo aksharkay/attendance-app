@@ -9,7 +9,7 @@ class AuthScreen extends StatelessWidget {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
+      // gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: error ? Colors.red : Colors.green,
       textColor: Colors.white,
@@ -52,7 +52,7 @@ class AuthScreen extends StatelessWidget {
                         children: [
                           Container(
                             child: Text(
-                              'FaceNet',
+                              'Alpha',
                               style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
