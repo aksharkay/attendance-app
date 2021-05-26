@@ -10,8 +10,9 @@ import 'dart:async';
 
 import '../providers/entries.dart';
 import '../widgets/app_drawer.dart';
-import './scanner_screen.dart';
+import 'add_entry_screen.dart';
 import './all_users_screen.dart';
+import './add_user_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   static const routeName = '/dashboard-screen';
@@ -195,18 +196,40 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.of(context).pushNamed(AllUsersScreen.routeName),
           ),
           SpeedDialChild(
+              child: Icon(
+                Icons.add_a_photo,
+                color: Colors.white,
+              ),
+              backgroundColor: Theme.of(context).primaryColor,
+              labelWidget: Text(
+                'Photo',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => AddEntryScreen(
+                        cameraDescription: cameraDescription,
+                      ),
+                    ),
+                  )),
+          SpeedDialChild(
             child: Icon(
-              Icons.add_a_photo,
+              Icons.person_add,
               color: Colors.white,
             ),
             backgroundColor: Theme.of(context).primaryColor,
             labelWidget: Text(
-              'Photo',
+              'User',
               style: TextStyle(color: Colors.white),
             ),
-            onTap: () => Navigator.of(context).pushReplacementNamed(
-              ScannerScreen.routeName,
-              arguments: cameraDescription,
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => AddUserScreen(
+                  cameraDescription: cameraDescription,
+                ),
+              ),
             ),
           ),
         ],
