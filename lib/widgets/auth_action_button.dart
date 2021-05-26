@@ -55,7 +55,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
 
   Future _signIn(context) async {
     String id = _regTextEditingController.text;
-
+    print(predictedUser.id + predictedUser.name);
     if (this.predictedUser.id == id) {
       Navigator.push(
           context,
