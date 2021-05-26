@@ -31,9 +31,22 @@ class CameraHeader extends StatelessWidget {
                 color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
-            width: 90,
-          )
+          InkWell(
+            onTap: onBackPressed,
+            child: Container(
+              margin: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              height: 50,
+              width: 50,
+              child: Center(child: Icon(Icons.switch_camera_rounded)),
+            ),
+          ),
+          // SizedBox(
+          //   width: 90,
+          // )
         ],
       ),
       height: 150,
