@@ -153,30 +153,30 @@ var functions = {
         }
     },
 
-    checkFace: (req,res) => {
-        try{
-            var val = '';
-            const childPython = spawn('python', ['./ml/face_recognition.py', req.query.path]);
-            childPython.stdout.on('data', (data) => {
-                val=data;
-                console.log(`User = ${data}`);
-            });
+    // checkFace: (req,res) => {
+    //     try{
+    //         var val = '';
+    //         const childPython = spawn('python', ['./ml/face_recognition.py', req.query.path]);
+    //         childPython.stdout.on('data', (data) => {
+    //             val=data;
+    //             console.log(`User = ${data}`);
+    //         });
 
-            childPython.stderr.on('data', (data) => {
-                res.json({success: false, msg: data}); 
-                console.log(`stderr: ${data}`);
-            });
+    //         childPython.stderr.on('data', (data) => {
+    //             res.json({success: false, msg: data}); 
+    //             console.log(`stderr: ${data}`);
+    //         });
 
-            childPython.on('close', (code) => {
-                reg = val.toString();
-                res.json({success: true, msg: reg.replace(/(\r\n|\n|\r)/gm, "")});
-                console.log(`Child process exited with code ${code}`);
-            });
-        }
-        catch(err){
-            return json({success: false, msg: err});
-        }
-    }
+    //         childPython.on('close', (code) => {
+    //             reg = val.toString();
+    //             res.json({success: true, msg: reg.replace(/(\r\n|\n|\r)/gm, "")});
+    //             console.log(`Child process exited with code ${code}`);
+    //         });
+    //     }
+    //     catch(err){
+    //         return json({success: false, msg: err});
+    //     }
+    // }
 }
 
 module.exports = functions
