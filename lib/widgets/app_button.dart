@@ -4,7 +4,7 @@ class AppButton extends StatelessWidget {
   AppButton(
       {this.onPressed,
       this.text,
-      this.color = const Color(0xFF0F0BDB),
+      this.color = const Color(0xF006B1B),
       this.icon = const Icon(
         Icons.add,
         color: Colors.white,
@@ -23,7 +23,7 @@ class AppButton extends StatelessWidget {
           color: color,
           boxShadow: <BoxShadow>[
             BoxShadow(
-              color: Colors.blue.withOpacity(0.1),
+              color: Theme.of(context).primaryColor,
               blurRadius: 1,
               offset: Offset(0, 2),
             ),
