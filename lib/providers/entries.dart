@@ -127,11 +127,16 @@ class Entries extends ChangeNotifier {
   Future<void> addNewUser(User user) async {
     try {
       final url = Uri.parse('https://$baseURL/addnewuser');
-      final response = await http.post(url, body: {
-        'id': user.id,
-        'name': user.name,
-        'embedding': user.embedding,
-      });
+      final response = await http.post(
+        url,
+        body: jsonEncode(
+          <String, dynamic>{
+            'id': user.id,
+            'name': user.name,
+            'embedding': user.embedding,
+          },
+        ),
+      );
 
       final jsonResp = json.decode(response.body);
       print(jsonResp);
