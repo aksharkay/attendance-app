@@ -140,7 +140,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
           children: [
             Text(
               'ADD',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
             SizedBox(
               width: 10,
