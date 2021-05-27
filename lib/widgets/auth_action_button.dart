@@ -6,7 +6,6 @@ import '../providers/user.dart';
 import '../widgets/app_button.dart';
 import '../services/facenet_service.dart';
 import '../providers/entries.dart';
-import '../providers/user.dart';
 import './app_text_field.dart';
 
 class AuthActionButton extends StatefulWidget {
@@ -41,7 +40,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
 
     /// creates a new user in the 'database'
     await _dataBaseService.saveData(name, id, predictedData);
-    Provider.of<Entries>(context, listen: false).addNewUser(
+    await Provider.of<Entries>(context, listen: false).addNewUser(
       User(
         id: id,
         name: name,
@@ -65,12 +64,6 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     print(predictedUser);
     print("User: " + predictedUser.id + predictedUser.name);
     if (this.predictedUser.id == id) {
-      Provider.of<Entries>(context, listen: false).addNewUser(
-        User(
-          id: predictedUser.id,
-          name: predictedUser.name,
-        ),
-      );
       Navigator.push(
           context,
           MaterialPageRoute(
