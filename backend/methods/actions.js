@@ -91,13 +91,14 @@ var functions = {
 
     addUser: function(req,res) {
         try{
-            if((!req.body.id) || (!req.body.name)){
+            if((!req.body.id) || (!req.body.name) || (!req.body.name)){
             res.json({success: false, msg: 'Enter all fields.'})
             }
             else{
                 var newUser = User({
                     name: req.body.name,
                     _id: req.body.id,
+                    embedding: req.body.embedding,
                 });
                 newUser.save(function(err,newUser){
                     if(err){
