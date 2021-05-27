@@ -123,11 +123,10 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFF0F0BDB),
+          color: Theme.of(context).accentColor,
           boxShadow: <BoxShadow>[
             BoxShadow(
-              color: Colors.blue.withOpacity(0.1),
-              blurRadius: 1,
+              color: Theme.of(context).accentColor,
               offset: Offset(0, 2),
             ),
           ],
