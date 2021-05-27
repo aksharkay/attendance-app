@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class User {
   final String id;
   final String name;
-  final List embedding;
+  final String embedding;
 
   User({
     @required this.id,

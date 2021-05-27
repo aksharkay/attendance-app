@@ -135,7 +135,7 @@ class Entries extends ChangeNotifier {
           {
             'id': user.id,
             'name': user.name,
-            'embedding': user.embedding,
+            'embedding': user.embedding.toString(),
           },
         ),
       );

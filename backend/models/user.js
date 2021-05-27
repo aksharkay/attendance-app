@@ -11,7 +11,7 @@ const userSchema = new Schema({
         required: true
     },
     embedding: {
-        type: Array,
+        type: String,
         required: true
     }
 });
