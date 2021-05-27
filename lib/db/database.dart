@@ -24,7 +24,7 @@ class DataBaseService {
   Future loadDB() async {
     var tempDir = await getApplicationDocumentsDirectory();
     String _embPath = tempDir.path + '/emb.json';
-    print(_embPath);
+    // print(_embPath);
 
     jsonFile = new File(_embPath);
 
