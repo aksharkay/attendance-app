@@ -105,7 +105,7 @@ class Entries extends ChangeNotifier {
     return Future.value(_allUsers);
   }
 
-  Future<void> addEntryManually(User user) async {
+  Future<void> addEntry(User user) async {
     try {
       final url = Uri.parse('https://$baseURL/addentry');
       final date = DateFormat('dd-MM-yyyy').format(DateTime.now()).toString();
@@ -124,46 +124,19 @@ class Entries extends ChangeNotifier {
     }
   }
 
-  addNewUser(String name, String id) async {
+  Future<void> addNewUser(User user) async {
     try {
       final url = Uri.parse('https://$baseURL/addnewuser');
       final response = await http.post(url, body: {
-        'id': id,
-        'name': name,
+        'id': user.id,
+        'name': user.name,
+        'embedding': user.embedding,
       });
 
       final jsonResp = json.decode(response.body);
       print(jsonResp);
 
-      toast(jsonResp['msg']);
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  Future<String> addPhotoEntry(String _filePath) async {
-    try {
-      var params = {'path': _filePath};
-      print(params['path']);
-
-      String endPoint = 'https://$baseURL';
-      String api = '/photoentry';
-      var uri = Uri.https(endPoint, api, params);
-      final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-      var response = await http.get(uri, headers: headers);
-
-      final jsonData = json.decode(response.body);
-      final extractedData = jsonData['msg'] as String;
-      var name = extractedData.substring(9);
-      var id = extractedData.substring(0, 9);
-      var user = new User(
-        id: id,
-        name: name,
-      );
-      addEntryManually(user);
-      notifyListeners();
-
-      return extractedData;
+      return toast(jsonResp['msg']);
     } catch (err) {
       throw err;
     }
