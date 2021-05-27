@@ -184,13 +184,15 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                       )
                     : Container(),
                 SizedBox(height: 10),
-                // widget.isLogin && predictedUser == null
-                //     ? Container()
-                //     : AppTextField(
-                //         controller: _regTextEditingController,
-                //         labelText: "Registration Number",
-                //         isSignUp: true,
-                //       ),
+                widget.isLogin && predictedUser == null
+                    ? Container()
+                    : widget.isLogin
+                        ? AppTextField(
+                            controller: _regTextEditingController,
+                            labelText: "Registration Number",
+                            isSignUp: true,
+                          )
+                        : Container(),
                 SizedBox(height: 10),
                 Divider(),
                 SizedBox(height: 10),
