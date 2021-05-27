@@ -65,9 +65,11 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     print("User: " + predictedUser.id + predictedUser.name);
     if (this.predictedUser.id == id) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => DashboardScreen()));
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => DashboardScreen(),
+        ),
+      );
     } else {
       showDialog(
         context: context,
@@ -204,9 +206,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                     : !widget.isLogin
                         ? AppButton(
                             text: 'ADD',
-                            onPressed: () async {
-                              await _signUp(context);
-                            },
+                            onPressed: () => _signUp(context),
                             icon: Icon(
                               Icons.person_add,
                               color: Colors.white,
