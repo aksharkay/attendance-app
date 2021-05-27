@@ -9,6 +9,5 @@ router.post('/addentry', actions.addEntry)
 router.post('/addnewuser', actions.addUser)
 router.get('/attlist',actions.getAttList)
 router.get('/allusers',actions.getAllUsers)
-router.get('/photoentry',actions.checkFace)
 
 module.exports = router
