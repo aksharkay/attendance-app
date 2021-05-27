@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -129,8 +130,9 @@ class Entries extends ChangeNotifier {
       final url = Uri.parse('https://$baseURL/addnewuser');
       final response = await http.post(
         url,
-        body: jsonEncode(
-          <String, dynamic>{
+        headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+        body: json.encode(
+          {
             'id': user.id,
             'name': user.name,
             'embedding': user.embedding,
