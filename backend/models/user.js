@@ -10,10 +10,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    // embedding: {
-    //     type: Array,
-    //     required: true
-    // }
+    embedding: {
+        type: Array,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Users',userSchema) 
