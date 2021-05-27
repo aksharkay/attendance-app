@@ -41,7 +41,13 @@ class _AuthActionButtonState extends State<AuthActionButton> {
 
     /// creates a new user in the 'database'
     await _dataBaseService.saveData(name, id, predictedData);
-    Provider.of<Entries>(context, listen: false).addNewUser(name, id);
+    Provider.of<Entries>(context, listen: false).addNewUser(
+      User(
+        id: id,
+        name: name,
+        embedding: predictedData,
+      ),
+    );
 
     // print(name);
     // print(id);
@@ -59,6 +65,12 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     print(predictedUser);
     print("User: " + predictedUser.id + predictedUser.name);
     if (this.predictedUser.id == id) {
+      Provider.of<Entries>(context, listen: false).addNewUser(
+        User(
+          id: predictedUser.id,
+          name: predictedUser.name,
+        ),
+      );
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -161,7 +173,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
               : widget.isLogin
                   ? Container(
                       child: Text(
-                      'User not found 😞',
+                      'User Not Found! Please Sign Up First.',
                       style: TextStyle(fontSize: 20),
                     ))
                   : Container(),
