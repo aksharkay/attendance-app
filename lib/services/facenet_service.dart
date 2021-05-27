@@ -156,7 +156,10 @@ class FaceNetService {
     Map<String, dynamic> data = _dataBaseService.db;
 
     /// if no faces saved
-    if (data?.length == 0) return null;
+    if (data?.length == 0) {
+      print("No faces saved.");
+      return null;
+    }
     double minDist = 999;
     double currDist = 0.0;
     String predRes;
