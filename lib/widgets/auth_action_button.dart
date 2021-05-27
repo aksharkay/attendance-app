@@ -37,6 +37,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     List predictedData = _faceNetService.predictedData;
     String name = _nameTextEditingController.text;
     String id = _regTextEditingController.text;
+    print("Predicted Emb: $predictedData");
 
     /// creates a new user in the 'database'
     await _dataBaseService.saveData(name, id, predictedData);
