@@ -44,12 +44,9 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       User(
         id: id,
         name: name,
-        embedding: predictedData,
+        embedding: predictedData.toString(),
       ),
     );
-
-    // print(name);
-    // print(id);
 
     /// resets the face stored in the face net sevice
     this._faceNetService.setPredictedData(null);
@@ -60,32 +57,31 @@ class _AuthActionButtonState extends State<AuthActionButton> {
   }
 
   Future _signIn(context) async {
-    String id = _regTextEditingController.text;
-    print(predictedUser);
+    // String id = _regTextEditingController.text;
     print("User: " + predictedUser.id + predictedUser.name);
-    if (this.predictedUser.id == id) {
-      await Provider.of<Entries>(context, listen: false).addEntry(
-        User(
-          id: predictedUser.id,
-          name: predictedUser.name,
-        ),
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => DashboardScreen(),
-        ),
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text('Wrong reg. no!'),
-          );
-        },
-      );
-    }
+    // if (this.predictedUser.id == id) {
+    await Provider.of<Entries>(context, listen: false).addEntry(
+      User(
+        id: predictedUser.id,
+        name: predictedUser.name,
+      ),
+    );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => DashboardScreen(),
+      ),
+    );
+    // } else {
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return AlertDialog(
+    //         content: Text('Wrong reg. no!'),
+    //       );
+    //     },
+    //   );
+    // }
   }
 
   String _predictUser() {
@@ -188,13 +184,13 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                       )
                     : Container(),
                 SizedBox(height: 10),
-                widget.isLogin && predictedUser == null
-                    ? Container()
-                    : AppTextField(
-                        controller: _regTextEditingController,
-                        labelText: "Registration Number",
-                        isSignUp: true,
-                      ),
+                // widget.isLogin && predictedUser == null
+                //     ? Container()
+                //     : AppTextField(
+                //         controller: _regTextEditingController,
+                //         labelText: "Registration Number",
+                //         isSignUp: true,
+                //       ),
                 SizedBox(height: 10),
                 Divider(),
                 SizedBox(height: 10),
