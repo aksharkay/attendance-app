@@ -106,29 +106,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
               selectDate();
             },
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 20, top: 20),
-            child: PopupMenuButton<String>(
-              child: Icon(
-                Icons.more_vert,
-                color: Colors.black,
-              ),
-              onSelected: (value) {
-                switch (value) {
-                  case 'Clear DB':
-                    _dataBaseService.cleanDB();
-                    break;
-                }
-              },
-              itemBuilder: (BuildContext context) {
-                return {'Clear DB'}.map((String choice) {
-                  return PopupMenuItem<String>(
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              },
+          PopupMenuButton<String>(
+            child: Icon(
+              Icons.more_vert,
+              color: Colors.white,
             ),
+            onSelected: (value) {
+              switch (value) {
+                case 'Clear DB':
+                  _dataBaseService.cleanDB();
+                  break;
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return {'Clear DB'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
           ),
         ],
         elevation: 0,
