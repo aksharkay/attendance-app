@@ -154,6 +154,7 @@ class FaceNetService {
   /// [predictedData]: Array that represents the face by the MobileFaceNet model
   String _searchResult(List predictedData) {
     Map<String, dynamic> data = _dataBaseService.db;
+    print("Data: $data");
 
     /// if no faces saved
     if (data?.length == 0) {
