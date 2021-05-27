@@ -62,7 +62,7 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
           child: InkWell(
             onDoubleTap: () {
               Provider.of<Entries>(context, listen: false)
-                  .addEntryManually(users.allUsers[i]);
+                  .addEntry(users.allUsers[i]);
             },
             child: ListTile(
               tileColor: Colors.white,
