@@ -64,6 +64,12 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     print(predictedUser);
     print("User: " + predictedUser.id + predictedUser.name);
     if (this.predictedUser.id == id) {
+      await Provider.of<Entries>(context, listen: false).addEntry(
+        User(
+          id: predictedUser.id,
+          name: predictedUser.name,
+        ),
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
