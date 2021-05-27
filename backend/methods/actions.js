@@ -91,7 +91,7 @@ var functions = {
 
     addUser: function(req,res) {
         try{
-            if((!req.body.id) || (!req.body.name) || (!req.body.name)){
+            if((!req.body.id) || (!req.body.name) || (!req.body.embedding)){
             res.json({success: false, msg: 'Enter all fields.'})
             }
             else{
