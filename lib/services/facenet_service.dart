@@ -69,8 +69,7 @@ class FaceNetService {
   /// takes the predicted data previously saved and do inference
   String predict() {
     /// search closer user prediction if exists
-    print('Predicted Data: ');
-    print(this._predictedData);
+    print('Predicted Data: ${this._predictedData}');
     return _searchResult(this._predictedData);
   }
 
@@ -173,7 +172,7 @@ class FaceNetService {
         predRes = label;
       }
     }
-    print("Pred Res: " + predRes);
+    // print("Pred Res: " + predRes);
     return predRes;
   }
 
