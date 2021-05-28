@@ -169,6 +169,9 @@ class AddEntryScreenState extends State<AddEntryScreen> {
         );
       });
     }
+    _initializeControllerFuture =
+        _cameraService.startService(widget.cameraDescription);
+    await _initializeControllerFuture;
   }
 
   _reload() {
