@@ -91,7 +91,7 @@ var functions = {
 
     addUser: function(req,res) {
         try{
-            console.log(req.body.embedding);
+            console.log(`Embedding from body: ${req.body.embedding}`);
             if((!req.body.id) || (!req.body.name) || (!req.body.embedding)){
             res.json({success: false, msg: 'Enter all fields.'})
             }
