@@ -211,7 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             backgroundColor: Theme.of(context).primaryColor,
             labelWidget: Text(
-              'Manual',
+              'Manual Attendance',
               style: TextStyle(color: Colors.white),
             ),
             onTap: () =>
@@ -224,15 +224,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               backgroundColor: Theme.of(context).primaryColor,
               labelWidget: Text(
-                'Photo',
+                'Facial Attendance',
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => AddEntryScreen(
-                        cameraDescription: cameraDescription,
-                      ),
+                          cameraDescription: cameraDescription,
+                          lensDirection: CameraLensDirection.front),
                     ),
                   )),
           SpeedDialChild(
@@ -242,15 +242,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             backgroundColor: Theme.of(context).primaryColor,
             labelWidget: Text(
-              'User',
+              'New User',
               style: TextStyle(color: Colors.white),
             ),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) => AddUserScreen(
-                  cameraDescription: cameraDescription,
-                ),
+                    cameraDescription: cameraDescription,
+                    lensDirection: CameraLensDirection.front),
               ),
             ),
           ),

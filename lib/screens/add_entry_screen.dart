@@ -14,11 +14,13 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class AddEntryScreen extends StatefulWidget {
-  final CameraDescription cameraDescription;
+  CameraDescription cameraDescription;
+  final CameraLensDirection lensDirection;
 
-  const AddEntryScreen({
+  AddEntryScreen({
     Key key,
     @required this.cameraDescription,
+    @required this.lensDirection,
   }) : super(key: key);
 
   @override
@@ -150,6 +152,25 @@ class AddEntryScreenState extends State<AddEntryScreen> {
     Navigator.of(context).pop();
   }
 
+  _switchCamPressed() async {
+    List<CameraDescription> cameras = await availableCameras();
+    if (widget.lensDirection == CameraLensDirection.front) {
+      setState(() {
+        widget.cameraDescription = cameras.firstWhere(
+          (CameraDescription camera) =>
+              camera.lensDirection == CameraLensDirection.back,
+        );
+      });
+    } else {
+      setState(() {
+        widget.cameraDescription = cameras.firstWhere(
+          (CameraDescription camera) =>
+              camera.lensDirection == CameraLensDirection.front,
+        );
+      });
+    }
+  }
+
   _reload() {
     setState(() {
       _bottomSheetVisible = false;
@@ -222,7 +243,7 @@ class AddEntryScreenState extends State<AddEntryScreen> {
           CameraHeader(
             "ADD ENTRY",
             onBackPressed: _onBackPressed,
-            // cameraDescription: cameraDescription,
+            switchCamPressed: _switchCamPressed,
           ),
         ],
       ),

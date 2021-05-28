@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CameraHeader extends StatelessWidget {
-  CameraHeader(this.title, {this.onBackPressed});
+  CameraHeader(this.title, {this.onBackPressed, this.switchCamPressed});
   final String title;
   final Function onBackPressed;
+  final Function switchCamPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class CameraHeader extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           InkWell(
-            onTap: onBackPressed,
+            onTap: switchCamPressed,
             child: Container(
               margin: EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -44,9 +45,6 @@ class CameraHeader extends StatelessWidget {
               child: Center(child: Icon(Icons.switch_camera_rounded)),
             ),
           ),
-          // SizedBox(
-          //   width: 90,
-          // )
         ],
       ),
       height: 150,
