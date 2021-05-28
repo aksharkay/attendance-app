@@ -206,12 +206,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: [
           SpeedDialChild(
             child: Icon(
-              Icons.add,
+              Icons.list_rounded,
               color: Colors.white,
             ),
             backgroundColor: Theme.of(context).primaryColor,
             labelWidget: Text(
-              'Manual Attendance',
+              'All Users',
               style: TextStyle(color: Colors.white),
             ),
             onTap: () =>
