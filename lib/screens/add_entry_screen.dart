@@ -15,7 +15,7 @@ import 'dart:math' as math;
 
 class AddEntryScreen extends StatefulWidget {
   CameraDescription cameraDescription;
-  final CameraLensDirection lensDirection;
+  CameraLensDirection lensDirection;
 
   AddEntryScreen({
     Key key,
@@ -156,6 +156,7 @@ class AddEntryScreenState extends State<AddEntryScreen> {
     List<CameraDescription> cameras = await availableCameras();
     if (widget.lensDirection == CameraLensDirection.front) {
       setState(() {
+        widget.lensDirection = CameraLensDirection.back;
         widget.cameraDescription = cameras.firstWhere(
           (CameraDescription camera) =>
               camera.lensDirection == CameraLensDirection.back,
@@ -163,6 +164,7 @@ class AddEntryScreenState extends State<AddEntryScreen> {
       });
     } else {
       setState(() {
+        widget.lensDirection = CameraLensDirection.front;
         widget.cameraDescription = cameras.firstWhere(
           (CameraDescription camera) =>
               camera.lensDirection == CameraLensDirection.front,
