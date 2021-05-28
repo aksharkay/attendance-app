@@ -163,6 +163,9 @@ class AddUserScreenState extends State<AddUserScreen> {
         );
       });
     }
+    _initializeControllerFuture =
+        _cameraService.startService(widget.cameraDescription);
+    await _initializeControllerFuture;
   }
 
   _reload() {
