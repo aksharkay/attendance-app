@@ -218,24 +218,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.of(context).pushNamed(AllUsersScreen.routeName),
           ),
           SpeedDialChild(
-              child: Icon(
-                Icons.add_a_photo,
-                color: Colors.white,
-              ),
-              backgroundColor: Theme.of(context).primaryColor,
-              labelWidget: Text(
-                'Facial Attendance',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => AddEntryScreen(
-                          cameraDescription: cameraDescription,
-                          lensDirection: CameraLensDirection.front),
-                    ),
-                  )),
-          SpeedDialChild(
             child: Icon(
               Icons.person_add,
               color: Colors.white,
@@ -249,6 +231,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) => AddUserScreen(
+                    cameraDescription: cameraDescription,
+                    lensDirection: CameraLensDirection.front),
+              ),
+            ),
+          ),
+          SpeedDialChild(
+            child: Icon(
+              Icons.add_a_photo,
+              color: Colors.white,
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
+            labelWidget: Text(
+              'Attendance',
+              style: TextStyle(color: Colors.white),
+            ),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => AddEntryScreen(
                     cameraDescription: cameraDescription,
                     lensDirection: CameraLensDirection.front),
               ),
