@@ -21,26 +21,31 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
       appBar: AppBar(
         title: Text('All Users'),
       ),
-      body: FutureBuilder(
-        future: _getAllUsers(context),
-        builder: (ctx, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Consumer<Entries>(
-                builder: (context, users, child) {
-                  // print(users.allUsers);
-                  return users.allUsers.length == 0
-                      ? _buildNoUsers()
-                      : _buildListView(users);
-                },
-              );
+      body: Column(
+        children: [
+          Text('Double Tap On User To Mark As Present'),
+          FutureBuilder(
+            future: _getAllUsers(context),
+            builder: (ctx, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  return Consumer<Entries>(
+                    builder: (context, users, child) {
+                      // print(users.allUsers);
+                      return users.allUsers.length == 0
+                          ? _buildNoUsers()
+                          : _buildListView(users);
+                    },
+                  );
 
-            default:
-              return Center(
-                child: LinearProgressIndicator(),
-              );
-          }
-        },
+                default:
+                  return Center(
+                    child: LinearProgressIndicator(),
+                  );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
