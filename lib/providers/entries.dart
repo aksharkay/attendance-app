@@ -145,7 +145,7 @@ class Entries extends ChangeNotifier {
 
       return toast(jsonResp['msg']);
     } catch (err) {
-      throw err;
+      return toast('User Already Exists');
     }
   }
 }
