@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 
 class AddUserScreen extends StatefulWidget {
   CameraDescription cameraDescription;
-  final CameraLensDirection lensDirection;
+  CameraLensDirection lensDirection;
   // static const routeName = 'add-user-screen';
 
   AddUserScreen(
@@ -150,6 +150,7 @@ class AddUserScreenState extends State<AddUserScreen> {
     List<CameraDescription> cameras = await availableCameras();
     if (widget.lensDirection == CameraLensDirection.front) {
       setState(() {
+        widget.lensDirection = CameraLensDirection.back;
         widget.cameraDescription = cameras.firstWhere(
           (CameraDescription camera) =>
               camera.lensDirection == CameraLensDirection.back,
@@ -157,6 +158,7 @@ class AddUserScreenState extends State<AddUserScreen> {
       });
     } else {
       setState(() {
+        widget.lensDirection = CameraLensDirection.front;
         widget.cameraDescription = cameras.firstWhere(
           (CameraDescription camera) =>
               camera.lensDirection == CameraLensDirection.front,
