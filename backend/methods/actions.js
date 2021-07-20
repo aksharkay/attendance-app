@@ -3,8 +3,6 @@ var Entry = require('../models/attendance')
 var Auth = require('../models/authenticate')
 var jwt = require('jwt-simple')
 var config = require('../config/dbconfig')
-const {spawn} = require('child_process');
-const { json } = require('body-parser')
 
 var functions = {
     addNewAuth: function(req,res){
