@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <color name="ic_launcher_background">dev_assets/logo.jpg</color> -->
+    <!-- <color name="ic_launcher_foreground">#000000</color> --> -->
+    <color name="splash">#006B1B</color>
+</resources>
