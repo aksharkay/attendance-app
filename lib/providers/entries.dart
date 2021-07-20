@@ -147,8 +147,4 @@ class Entries extends ChangeNotifier {
       return toast('User Already Exists');
     }
   }
-
-  Future<void> downloadAttendance() async {
-    try {} catch (err) {}
-  }
 }
