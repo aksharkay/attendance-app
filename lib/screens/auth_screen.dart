@@ -51,18 +51,18 @@ class AuthScreen extends StatelessWidget {
                         children: [
                           Container(
                             child: Text(
-                              'Alpha',
+                              'FaceRec!',
                               style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
-                          Container(
-                            child: Text(
-                              'Making attendance systems more efficient!',
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
-                          ),
+                          // Container(
+                          //   child: Text(
+                          //     'Making attendance systems more efficient!',
+                          //     style: Theme.of(context).textTheme.headline1,
+                          //   ),
+                          // ),
                           SizedBox(
-                            height: deviceSize.height * 0.1,
+                            height: deviceSize.height * 0.15,
                           )
                         ],
                       ),
