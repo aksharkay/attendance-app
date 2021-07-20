@@ -162,7 +162,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
           widget.isLogin && predictedUser != null
               ? Container(
                   child: Text(
-                    'Welcome Back, ' + predictedUser.name + '.',
+                    'Hello, ' + predictedUser.name + '.',
                     style: TextStyle(fontSize: 20),
                   ),
                 )
@@ -188,7 +188,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                     : !widget.isLogin
                         ? AppTextField(
                             controller: _regTextEditingController,
-                            labelText: "Registration Number",
+                            labelText: "UID Number",
                             isSignUp: true,
                           )
                         : Container(),
