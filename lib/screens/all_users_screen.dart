@@ -23,7 +23,7 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
       ),
       body: Column(
         children: [
-          Text('Double Tap On User To Mark As Present'),
+          // Text('Double Tap On User To Mark As Present'),
           Expanded(
             child: FutureBuilder(
               future: _getAllUsers(context),
