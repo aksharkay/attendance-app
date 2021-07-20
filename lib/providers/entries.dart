@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -147,5 +146,9 @@ class Entries extends ChangeNotifier {
     } catch (err) {
       return toast('User Already Exists');
     }
+  }
+
+  Future<void> downloadAttendance() async {
+    try {} catch (err) {}
   }
 }
