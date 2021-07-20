@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:open_file/open_file.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as excel;
 import '../services/facenet_service.dart';
 import '../services/ml_vision_service.dart';
 import '../db/database.dart';
@@ -7,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
 import 'dart:async';
+import 'dart:io';
 
 import '../providers/entries.dart';
 import '../widgets/app_drawer.dart';
@@ -87,6 +92,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
         .getAttList(DateFormat('dd-MM-yyyy').format(_dateTime).toString());
   }
 
+  Future<void> createExcel() async {
+    final String date = DateFormat('dd-MM-yyyy').format(_dateTime).toString();
+    final list =
+        await Provider.of<Entries>(context, listen: false).getAttList(date);
+
+    final excel.Workbook workbook = excel.Workbook();
+    final excel.Worksheet sheet = workbook.worksheets[0];
+
+    sheet.getRangeByName('A1').setText('UID');
+    sheet.getRangeByName('B1').setText('Name');
+    sheet.getRangeByName('C1').setText('Time');
+
+    int i = 2, j = 2, k = 2;
+    list.forEach((element) {
+      // print(element.id);
+      // print(element.name);
+      // print(element.time);
+      sheet.getRangeByName('A$i').setText(element.id);
+      sheet.getRangeByName('B$j').setText(element.name);
+      sheet.getRangeByName('C$k').setText(element.time);
+      i++;
+      j++;
+      k++;
+    });
+
+    final List<int> bytes = workbook.saveAsStream();
+    workbook.dispose();
+
+    final String path = (await getApplicationSupportDirectory()).path;
+    final String fileName = '$path/attendance_$date.xlsx';
+    final File file = File(fileName);
+    await file.writeAsBytes(bytes, flush: true);
+    OpenFile.open(fileName);
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -99,12 +139,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: TextStyle(fontSize: 25),
         ),
         actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+          // IconButton(icon: Icon(Icons.search), onPressed: () {}),
           IconButton(
-            icon: Icon(Icons.calendar_today),
-            onPressed: () {
-              selectDate();
-            },
+            icon: Icon(Icons.file_download_outlined),
+            onPressed: createExcel,
           ),
           PopupMenuButton<String>(
             child: Icon(
