@@ -188,7 +188,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                     : !widget.isLogin
                         ? AppTextField(
                             controller: _regTextEditingController,
-                            labelText: "UID Number",
+                            labelText: "Registration Number",
                             isSignUp: true,
                           )
                         : Container(),
