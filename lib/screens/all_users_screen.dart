@@ -19,7 +19,13 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
       appBar: AppBar(
-        title: Text('All Users'),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          'All Users',
+          style: TextStyle(
+            fontSize: Theme.of(context).textTheme.headline1.fontSize,
+          ),
+        ),
       ),
       body: Column(
         children: [
