@@ -7,15 +7,21 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('Hey Admin!'),
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Text(
+              'Hey Admin!',
+              style: TextStyle(
+                fontSize: Theme.of(context).textTheme.headline1.fontSize,
+              ),
+            ),
             automaticallyImplyLeading: false,
             actions: [
-              IconButton(
-                icon: Icon(Icons.arrow_back_rounded),
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed('/');
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(Icons.arrow_back_rounded),
+              //   onPressed: () {
+              //     Navigator.of(context).pushReplacementNamed('/');
+              //   },
+              // ),
             ],
             elevation: 10,
           ),
