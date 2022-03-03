@@ -3,14 +3,12 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 class DataBaseService {
-  // singleton boilerplate
   static final DataBaseService _cameraServiceService =
       DataBaseService._internal();
 
   factory DataBaseService() {
     return _cameraServiceService;
   }
-  // singleton boilerplate
   DataBaseService._internal();
 
   /// file that stores the data on filesystem

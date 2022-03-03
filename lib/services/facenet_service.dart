@@ -7,13 +7,11 @@ import 'package:tflite_flutter/tflite_flutter.dart' as tflite;
 import 'package:image/image.dart' as imglib;
 
 class FaceNetService {
-  // singleton boilerplate
   static final FaceNetService _faceNetService = FaceNetService._internal();
 
   factory FaceNetService() {
     return _faceNetService;
   }
-  // singleton boilerplate
   FaceNetService._internal();
 
   DataBaseService _dataBaseService = DataBaseService();
@@ -25,7 +23,6 @@ class FaceNetService {
   List _predictedData;
   List get predictedData => this._predictedData;
 
-  //  saved users data
   dynamic data = {};
 
   Future loadModel() async {
@@ -59,7 +56,7 @@ class FaceNetService {
     input = input.reshape([1, 112, 112, 3]);
     List output = List.generate(1, (index) => List.filled(192, 0));
 
-    /// runs and transforms the data 🤖
+    /// runs and transforms the data
     this._interpreter.run(input, output);
     output = output.reshape([192]);
 
@@ -87,7 +84,7 @@ class FaceNetService {
     return imageAsList;
   }
 
-  /// crops the face from the image 💇
+  /// crops the face from the image
   /// [cameraImage]: current image
   /// [face]: face detected
   _cropFace(CameraImage image, Face faceDetected) {
@@ -164,7 +161,7 @@ class FaceNetService {
     double currDist = 0.0;
     String predRes;
 
-    /// search the closest result 👓
+    /// search the closest result
     for (String label in data.keys) {
       currDist = _euclideanDistance(data[label], predictedData);
       if (currDist <= threshold && currDist < minDist) {
@@ -177,7 +174,7 @@ class FaceNetService {
   }
 
   /// Adds the power of the difference between each point
-  /// then computes the sqrt of the result 📐
+  /// then computes the sqrt of the result
   double _euclideanDistance(List e1, List e2) {
     if (e1 == null || e2 == null) throw Exception("Null argument");
 

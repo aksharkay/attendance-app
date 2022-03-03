@@ -3,13 +3,11 @@ import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
 class CameraService {
-  // singleton boilerplate
   static final CameraService _cameraServiceService = CameraService._internal();
 
   factory CameraService() {
     return _cameraServiceService;
   }
-  // singleton boilerplate
   CameraService._internal();
 
   CameraController _cameraController;
@@ -31,12 +29,10 @@ class CameraService {
       enableAudio: false,
     );
 
-    // sets the rotation of the image
     this._cameraRotation = rotationIntToImageRotation(
       this._cameraDescription.sensorOrientation,
     );
 
-    // Next, initialize the controller. This returns a Future.
     return await this._cameraController.initialize();
   }
 
@@ -53,14 +49,12 @@ class CameraService {
     }
   }
 
-  /// takes the picture and saves it in the given path 📸
   Future<XFile> takePicture() async {
     XFile file = await _cameraController.takePicture();
     this._imagePath = file.path;
     return file;
   }
 
-  /// returns the image size 📏
   Size getImageSize() {
     return Size(
       _cameraController.value.previewSize.height,
